@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | klip的博客</title>
+  <title>ESXi日志分析 | klip的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="klip的博客">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="ESXi日志分析当ESXi主机出现故障，发现问题原因阶段往往花费大量时间，而对于ESXi系统log无从下手，这里收集了一些分析工具及方法，快速定位问题并节省时间去处理问题  vmcheck日志分析网站vmcheck网站 http://www.vmcheck.net/它能做什么?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESXi日志分析">
+<meta property="og:url" content="http://yoursite.com/2018/10/25/ESXi日志分析/index.html">
 <meta property="og:site_name" content="klip的博客">
+<meta property="og:description" content="ESXi日志分析当ESXi主机出现故障，发现问题原因阶段往往花费大量时间，而对于ESXi系统log无从下手，这里收集了一些分析工具及方法，快速定位问题并节省时间去处理问题  vmcheck日志分析网站vmcheck网站 http://www.vmcheck.net/它能做什么?">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-25T03:52:08.030Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="klip的博客">
+<meta name="twitter:title" content="ESXi日志分析">
+<meta name="twitter:description" content="ESXi日志分析当ESXi主机出现故障，发现问题原因阶段往往花费大量时间，而对于ESXi系统log无从下手，这里收集了一些分析工具及方法，快速定位问题并节省时间去处理问题  vmcheck日志分析网站vmcheck网站 http://www.vmcheck.net/它能做什么?">
   
     <link rel="alternative" href="/atom.xml" title="klip的博客" type="application/atom+xml">
   
@@ -146,141 +150,168 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-ESXi日志分析" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      ESXi日志分析
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/25/ESXi日志分析/" class="archive-article-date">
+
+        
+        <a href="/2018/10/25/ESXi日志分析/" class="archive-article-date">
   	<time datetime="2018-10-25T03:30:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-25</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/25/ESXi日志分析/">ESXi日志分析</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="ESXi日志分析"><a href="#ESXi日志分析" class="headerlink" title="ESXi日志分析"></a>ESXi日志分析</h3><p><strong><br>当ESXi主机出现故障，发现问题原因阶段往往花费大量时间，而对于ESXi系统log无从下手，这里收集了一些分析工具及方法，快速定位问题并节省时间去处理问题
+</strong></p>
+<h4 id="vmcheck日志分析网站"><a href="#vmcheck日志分析网站" class="headerlink" title="vmcheck日志分析网站"></a>vmcheck日志分析网站</h4><p><strong><br>vmcheck网站 <a href="http://www.vmcheck.net/" target="_blank" rel="noopener">http://www.vmcheck.net/</a><br><br>它能做什么?
+</strong><br><a id="more"></a></p>
+<h5 id="Host-HCL-info"><a href="#Host-HCL-info" class="headerlink" title="Host HCL info"></a>Host HCL info</h5><pre><code>汇总了ESXi管理网络地址,系统运行时间,群集中主机信息,主机名/DNS/NTP信息,主机型号和序列号,BIOS/UEFI版本及日期,BMC版本,CPU类型及核数,内存信息,ESXI的版本,光纤卡RAID卡的兼容性列表及驱动版本和固件版本网卡的兼容性列表及驱动版本和固件版本.PCI设备信息(只包括vmhba和vmnic),第三方VIB安装包(驱动和应用),VIB更新历史,ESXI近期启动时间,ESXI coredump分区配置情况,当前日志是否有coredump文件等。
+</code></pre><h5 id="Storage-issue-check"><a href="#Storage-issue-check" class="headerlink" title="Storage issue check"></a>Storage issue check</h5><pre><code>Scsicode失败检查(存储LUN相关)FCP命令失败检查(光纤存储LUN)，存储链路状态检查，存储锁检查，磁盘类型，磁盘和磁盘适配器成功命令数与失败命令数(驱动层统计值)。
+</code></pre><h5 id="Hardware-MCEcheck"><a href="#Hardware-MCEcheck" class="headerlink" title="Hardware MCEcheck"></a>Hardware MCEcheck</h5><pre><code>基于ESXI日志检查，硬件MCE内存异常.
+</code></pre><h5 id="Network-check"><a href="#Network-check" class="headerlink" title="Network check"></a>Network check</h5><pre><code>虚拟交换机的上连网卡信息与vmkernel口的信息以及网卡发生up/down的日志,网卡的错误计数器值的统计。
+</code></pre><h5 id="Virtual-Machineinfo"><a href="#Virtual-Machineinfo" class="headerlink" title="Virtual Machineinfo"></a>Virtual Machineinfo</h5><pre><code>在ESXI主机上注册的虚拟机, 支持DNS解析的虚拟机名子和IP，虚拟机的名子系统类型及存储路径。
+</code></pre><h5 id="IPMI-log"><a href="#IPMI-log" class="headerlink" title="IPMI log"></a>IPMI log</h5><pre><code>ESXI日志层面收集到的IPMI的SEL日志,报错的SEL日志,发生异常的传感器。
+</code></pre><h5 id="Check-Result-summary"><a href="#Check-Result-summary" class="headerlink" title="Check Result summary"></a>Check Result summary</h5><pre><code>针对当前日志给出分析结果,可以查看到当前主机存在哪些问题。
+</code></pre><h4 id="vSphere日志分析器loginsight"><a href="#vSphere日志分析器loginsight" class="headerlink" title="vSphere日志分析器loginsight"></a>vSphere日志分析器loginsight</h4><p><strong><br>vCenter Log Insight，一款帮助用户和管理员分析日志的工具，可以帮助他们快速定位到故障原因及节省时间。<br><br><a href="http://blog.51cto.com/xjsunjie/1901858" target="_blank" rel="noopener">http://blog.51cto.com/xjsunjie/1901858</a>
+</strong></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/25/ESXi日志分析/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/24/Hello/" class="archive-article-date">
-  	<time datetime="2018-10-24T07:32:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-24</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/24/Hello/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">FC SAN简单模拟</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/24/Hello/">FC SAN简单模拟</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">targetcli</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">open-e</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">openfilter</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/23/hello-world/" class="archive-article-date">
-  	<time datetime="2018-10-23T06:32:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/23/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">helloworld</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -311,8 +342,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
